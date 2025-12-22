@@ -23,4 +23,9 @@ class Rental extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isOwnedByCurrentUser(): bool
+    {
+        return $this->user_id === Auth::id();
+    }
 }

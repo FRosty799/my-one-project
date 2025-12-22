@@ -32,9 +32,10 @@
                                 <thead>
                                     <tr class="bg-gray-50 border-b">
                                         <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('Item') }}</th>
-                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('Start Date') }}</th>
-                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('End Date') }}</th>
-                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700 text-right">{{ __('Status') }}</th>
+                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('Rental Dates') }}</th>
+                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('Total Price') }}</th>
+                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700">{{ __('Status') }}</th>
+                                        <th class="px-4 py-3 text-sm font-semibold text-gray-700 text-right">{{ __('Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100">
@@ -43,16 +44,45 @@
                                             <td class="px-4 py-4 text-sm font-medium text-gray-900">
                                                 {{ $booking->item->name }}
                                             </td>
+                                            
                                             <td class="px-4 py-4 text-sm text-gray-600">
-                                                {{ \Carbon\Carbon::parse($booking->start_date)->format('M d, Y') }}
+                                                <form action="{{ route('rentals.update', $booking) }}" method="POST" class="flex items-center space-x-2">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="flex flex-col">
+                                                        <label class="text-[10px] uppercase text-gray-400">Start</label>
+                                                        <input type="date" name="start_date" value="{{ \Carbon\Carbon::parse($booking->start_date)->format('Y-m-d') }}" class="text-xs border-gray-300 rounded p-1 focus:ring-indigo-500">
+                                                    </div>
+                                                    <div class="flex flex-col">
+                                                        <label class="text-[10px] uppercase text-gray-400">End</label>
+                                                        <input type="date" name="end_date" value="{{ \Carbon\Carbon::parse($booking->end_date)->format('Y-m-d') }}" class="text-xs border-gray-300 rounded p-1 focus:ring-indigo-500">
+                                                    </div>
+                                                    <button type="submit" class="mt-4 text-indigo-600 hover:text-indigo-900 text-xs font-bold px-2 py-1 bg-indigo-50 rounded">
+                                                        Update
+                                                    </button>
+                                                </form>
                                             </td>
-                                            <td class="px-4 py-4 text-sm text-gray-600">
-                                                {{ \Carbon\Carbon::parse($booking->end_date)->format('M d, Y') }}
+                                        
+                                            <td class="px-4 py-4 text-sm text-gray-900 font-semibold">
+                                                ${{ number_format($booking->total_price, 2) }}
                                             </td>
-                                            <td class="px-4 py-4 text-sm text-right">
+                                        
+                                            <td class="px-4 py-4 text-sm">
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                     {{ __('Confirmed') }}
                                                 </span>
+                                            </td>
+                                        
+                                            <td class="px-4 py-4 text-sm text-right">
+                                                <form action="{{ route('rentals.destroy', $booking) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-500 hover:text-red-700 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

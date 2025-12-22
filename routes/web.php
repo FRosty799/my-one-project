@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     // Rental Gear Routes
     Route::post('/rent', [RentalController::class, 'store'])->name('rentals.store');
     Route::get('/my-bookings', [RentalController::class, 'myBookings'])->name('bookings.index');
+    Route::patch('/rentals/{rental}', [RentalController::class, 'update'])->name('rentals.update');
+    Route::delete('/rentals/{rental}', [RentalController::class, 'destroy'])->name('rentals.destroy');
 });
 
 require __DIR__.'/auth.php';
