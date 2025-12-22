@@ -12,7 +12,7 @@ A Laravel web application project.
 
 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/FRosty799/my-one-project
 cd my-one-project
 ```
 
