@@ -56,3 +56,5 @@ Visit `http://my-one-project.test/` in your browser.
 - `/routes` - Route definitions
 - `/resources` - Views and assets
 - `/database` - Migrations and seeders
+
+## Demo / Screenshot
