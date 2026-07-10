@@ -116,3 +116,6 @@ Laravel Herd handles the web server setup automatically, so you don't need addit
 - `/database` - Migrations and seeders
 
 ## Demo / Screenshot
+![dashboard.](screenshot/Screenshot1.png)
+![browse gear.](screenshot/Screenshot2.png)
+![browse gear logged in.](screenshot/Screenshot3.png)
